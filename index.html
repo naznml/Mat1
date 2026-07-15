@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магистратураға дайындық тесті - Математика</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        .quiz-container {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .question-num {
+            font-weight: bold;
+            color: #2a5298;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: inline-block;
+            border-bottom: 2px solid #2a5298;
+            padding-bottom: 3px;
+        }
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+        .math-display {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            padding: 14px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+        .option-item:hover {
+            background: #e2e8f0;
+        }
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            width: 18px;
+            height: 18px;
+            accent-color: #2a5298;
+            cursor: pointer;
+        }
+        /* Стили результатов */
+        .option-item.correct-choice {
+            background-color: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46;
+            font-weight: bold;
+        }
+        .option-item.incorrect-choice {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b;
+        }
+        .explanation-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #eff6ff;
+            border-left: 5px solid #1d4ed8;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .explanation-box h4 {
+            margin-top: 0;
+            color: #1e40af;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .explanation-steps {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .explanation-steps li {
+            margin-bottom: 8px;
+        }
+        .action-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+            transition: all 0.2s ease;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+        }
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Магистратураға дайындық тренажеры</h1>
+    <p>Математика бөлімі — Тапсырмалардың толық интерактивті талдауы</p>
+</div>
+
+<div class="quiz-container">
+
+    <div class="question-card" id="q1-container">
+        <span class="question-num">Сұрақ №1</span>
+        <div class="question-text">\(OZ\) осі арқылы өтетін жазықтық:</div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q1" value="A">
+                <span>A) \(3x - 5z = 0\)</span>
+            </label>
+            <label class="option-item" id="q1-correct">
+                <input type="radio" name="q1" value="B">
+                <span>B) \(3x - 2y = 0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q1" value="C">
+                <span>C) \(3x - 2z = 0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q1" value="D">
+                <span>D) \(3z - 2y = 0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q1" value="E">
+                <span>E) \(3z - 4y = 0\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp1">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Жазықтықтың жалпы теңдеуі келесі түрде жазылады: \(Ax + By + Cz + D = 0\).</li>
+                <li>Егер жазықтық \(OZ\) осі арқылы өтетін болса, онда осы осьтегі кез келген нүкте жазықтық теңдеуін қанағаттандыруы тиіс. Осы ось бойындағы нүктелерде \(x = 0\) және \(y = 0\) болады.</li>
+                <li>Бұл жағдайда теңдеудегі \(C\) және \(D\) коэффициенттері нөлге тең болуы қажет (\(C = 0\), \(D = 0\)).</li>
+                <li>Демек, \(OZ\) осі арқылы өтетін жазықтықтың теңдеуі тек \(x\) және \(y\) айнымалыларынан тұрады және бос мүшесі болмайды: \(Ax + By = 0\).</li>
+                <li>Ұсынылған жауаптардың ішінен бұл шартқа сәйкес келетіні тек: <strong>\(3x - 2y = 0\)</strong>.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q2-container">
+        <span class="question-num">Сұрақ №2</span>
+        <div class="question-text">Теңдеудің шешімі:</div>
+        <div class="math-display">
+            $$\begin{vmatrix} 2x - 1 & -3 \\ -1 & x \end{vmatrix} = 0$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q2" value="A">
+                <span>A) \(-1; -2,5\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q2" value="B">
+                <span>B) \(-1; -1,5\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q2" value="C">
+                <span>C) \(-1; 2\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q2" value="D">
+                <span>D) \(2; 1,5\)</span>
+            </label>
+            <label class="option-item" id="q2-correct">
+                <input type="radio" name="q2" value="E">
+                <span>E) \(-1; 1,5\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp2">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Екінші ретті анықтауышты (детерминантты) ашамыз:
+                    $$\begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc$$
+                </li>
+                <li>Біздің жағдайда:
+                    $$(2x - 1) \cdot x - (-3) \cdot (-1) = 0$$
+                </li>
+                <li>Жақшаны ашып, теңдеуді ықшамдаймыз:
+                    $$2x^2 - x - 3 = 0$$
+                </li>
+                <li>Дискриминантты табамыз:
+                    $$D = b^2 - 4ac = (-1)^2 - 4 \cdot 2 \cdot (-3) = 1 + 24 = 25$$
+                </li>
+                <li>Түбірлерін есептейміз:
+                    $$x_1 = \frac{-b - \sqrt{D}}{2a} = \frac{1 - 5}{4} = \frac{-4}{4} = -1$$
+                    $$x_2 = \frac{-b + \sqrt{D}}{2a} = \frac{1 + 5}{4} = \frac{6}{4} = 1,5$$
+                </li>
+                <li>Шешімдер жиыны: \(-1; 1,5\).</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: E</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q3-container">
+        <span class="question-num">Сұрақ №3</span>
+        <div class="question-text">Интегралдың мәні:</div>
+        <div class="math-display">
+            $$\int \text{arctg}\,x \, dx$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q3" value="A">
+                <span>A) \(x\,\text{arctg}\,x + \ln(1 + x^2) + C\)</span>
+            </label>
+            <label class="option-item" id="q3-correct">
+                <input type="radio" name="q3" value="B">
+                <span>B) \(x\,\text{arctg}\,x - \frac{1}{2}\ln(1 + x^2) + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q3" value="C">
+                <span>C) \(x\,\text{arctg}\,x - \ln(1 + x^2) + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q3" value="D">
+                <span>D) \(\frac{1}{2}x\,\text{arctg}\,x - \frac{1}{2}\ln(1 + x^2) + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q3" value="E">
+                <span>E) \(\frac{1}{2}x\,\text{arctg}\,x + \frac{1}{2}\ln(1 + x^2) + C\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp3">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Бөліктеп интегралдау әдісін қолданамыз: \(\int u \, dv = uv - \int v \, du\).</li>
+                <li>Белгілеу енгіземіз:
+                    $$u = \text{arctg}\,x \implies du = \frac{1}{1 + x^2}dx$$
+                    $$dv = dx \implies v = x$$
+                </li>
+                <li>Формулаға қоямыз:
+                    $$\int \text{arctg}\,x \, dx = x\,\text{arctg}\,x - \int \frac{x}{1 + x^2}dx$$
+                </li>
+                <li>Қалған интегралды шешу үшін дифференциал белгісінің астына енгіземіз:
+                    $$\int \frac{x}{1 + x^2}dx = \frac{1}{2}\int \frac{d(1+x^2)}{1+x^2} = \frac{1}{2}\ln(1 + x^2)$$
+                </li>
+                <li>Қорытынды нәтиже:
+                    $$x\,\text{arctg}\,x - \frac{1}{2}\ln(1 + x^2) + C$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+      <div class="question-card" id="q4-container">
+        <span class="question-num">Сұрақ №4</span>
+        <div class="question-text">\(x - 2y + 2 = 0\) түзуіне параллель болатын түзу:</div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q4" value="A">
+                <span>A) \(2x - 3y + 3 = 0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q4" value="B">
+                <span>B) \(2x - 7y + 3 = 0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q4" value="C">
+                <span>C) \(x - 7y + 3 = 0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q4" value="D">
+                <span>D) \(2x - y + 3 = 0\)</span>
+            </label>
+            <label class="option-item" id="q4-correct">
+                <input type="radio" name="q4" value="E">
+                <span>E) \(2x - 4y + 3 = 0\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp4">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Екі түзу \(A_1x + B_1y + C_1 = 0\) және \(A_2x + B_2y + C_2 = 0\) параллель болуы үшін олардың бағыттауыш коэффициенттері пропорционал болуы керек:
+                    $$\frac{A_1}{A_2} = \frac{B_1}{B_2} \neq \frac{C_1}{C_2}$$
+                </li>
+                <li>Берілген түзуде: \(A_1 = 1\), \(B_1 = -2\).</li>
+                <li>Енді нұсқаларды тексереміз:
+                    <ul>
+                        <li><strong>E нұсқасы:</strong> \(2x - 4y + 3 = 0\). Мұнда \(A_2 = 2\), \(B_2 = -4\).</li>
+                        <li>Қатынастарды тексерейік: 
+                            $$\frac{1}{2} = \frac{-2}{-4} \implies \frac{1}{2} = \frac{1}{2}$$
+                        </li>
+                        <li>Бос мүшелердің қатынасы тең емес: \(\frac{2}{3} \neq \frac{1}{2}\). Шарт толық орындалып тұр!</li>
+                    </ul>
+                </li>
+                <li>Сонымен қатар бұл түзулердің бұрыштық коэффициенттері де тең екенін көруге болады (\(k = 0.5\)).</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: E</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q5-container">
+        <span class="question-num">Сұрақ №5</span>
+        <div class="question-text">Жалпы мүшесі \(a_n = \frac{2n - 1}{(\sqrt{2})^n}\) болатын сандық қатары:</div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q5" value="A">
+                <span>A) \(x < -1; x > 1\) аралықта жинақсыз</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q5" value="B">
+                <span>B) \(x < -1; x > 1\) жинақты</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q5" value="C">
+                <span>C) жинақсыз</span>
+            </label>
+            <label class="option-item" id="q5-correct">
+                <input type="radio" name="q5" value="D">
+                <span>D) жинақты</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q5" value="E">
+                <span>E) \((-1; 1)\) аралықта жинақсыз</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp5">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Бұл қатардың жинақтылығын зерттеу үшін Даламбер белгісін қолданамыз:
+                    $$D = \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right|$$
+                </li>
+                <li>Келесі мүшені жазамыз:
+                    $$a_{n+1} = \frac{2(n+1) - 1}{(\sqrt{2})^{n+1}} = \frac{2n + 1}{(\sqrt{2})^{n+1}}$$
+                </li>
+                <li>Қатынасты есептейміз:
+                    $$\lim_{n \to \infty} \frac{2n + 1}{(\sqrt{2})^{n+1}} \cdot \frac{(\sqrt{2})^n}{2n - 1} = \lim_{n \to \infty} \left( \frac{2n + 1}{2n - 1} \cdot \frac{1}{\sqrt{2}} \right)$$
+                </li>
+                <li>Шекті табамыз:
+                    $$\frac{1}{\sqrt{2}} \cdot \lim_{n \to \infty} \frac{2n + 1}{2n - 1} = \frac{1}{\sqrt{2}} \cdot 1 = \frac{1}{\sqrt{2}}$$
+                </li>
+                <li>Шыққан мәнді 1-мен салыстырамыз:
+                    $$D = \frac{1}{\sqrt{2}} \approx 0.707 < 1$$
+                </li>
+                <li>Даламбер белгісі бойынша, егер \(D < 1\) болса, онда қатар <strong>жинақты (жинақталады)</strong> болады.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: D</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q6-container">
+        <span class="question-num">Сұрақ №6</span>
+        <div class="question-text">\(y = 2 + x - x^2\) функциясы берілген. \(y'(0)\) туындысының мәні:</div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q6" value="A">
+                <span>A) \(y'(0) = -1\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q6" value="B">
+                <span>B) \(y'(0) = -2\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q6" value="C">
+                <span>C) \(y'(0) = 3\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q6" value="D">
+                <span>D) \(y'(0) = 0\)</span>
+            </label>
+            <label class="option-item" id="q6-correct">
+                <input type="radio" name="q6" value="E">
+                <span>E) \(y'(0) = 1\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp6">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Алдымен берілген функцияның жалпы туындысын табамыз:
+                    $$y' = (2 + x - x^2)'$$
+                </li>
+                <li>Қосындының туындысын алу ережесі бойынша әр мүшені жеке дифференциалдаймыз:
+                    $$y' = (2)' + (x)' - (x^2)' = 0 + 1 - 2x = 1 - 2x$$
+                </li>
+                <li>Енді туындының \(x = 0\) нүктесіндегі мәнін есептейміз:
+                    $$y'(0) = 1 - 2(0) = 1$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: E</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q7-container">
+        <span class="question-num">Сұрақ №7</span>
+        <div class="question-text">\(y' = \sqrt{x + 22y - 41}\) теңдеуі айнымалысы бөліктенетін теңдеуге келесі алмастыру арқылы келтіріледі:</div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q7" value="A">
+                <span>A) \(z = x + 22y - 42\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q7" value="B">
+                <span>B) \(z = x + 11y - 21\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q7" value="C">
+                <span>C) \(z = \sqrt{x + 2y - 21}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q7" value="D">
+                <span>D) \(z = \sqrt{x + 22y - 41}\)</span>
+            </label>
+            <label class="option-item" id="q7-correct">
+                <input type="radio" name="q7" value="E">
+                <span>E) \(z = x + 22y - 41\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp7">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Берілген теңдеу \(y' = f(Ax + By + C)\) түріндегі дифференциалдық теңдеулер класына жатады.</li>
+                <li>Мұндай теңдеулерді шешу үшін түбір астындағы сызықтық өрнекті толығымен жаңа айнымалымен алмастырады:
+                    $$z = Ax + By + C$$
+                </li>
+                <li>Біздің жағдайда түбір астында тұрған өрнек: \(x + 22y - 41\).</li>
+                <li>Сәйкесінше, жаңа айнымалы енгіземіз:
+                    $$z = x + 22y - 41$$
+                </li>
+                <li>Осы алмастырудан кейін \(z' = 1 + 22y'\) болады, бұл теңдеуді айнымалылары бөлінетін қарапайым түрге келтіруге мүмкіндік береді.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: E</strong></p>
+        </div>
+    </div>
+      <div class="question-card" id="q8-container">
+        <span class="question-num">Сұрақ №8</span>
+        <div class="question-text">Интегралдың мәні:</div>
+        <div class="math-display">
+            $$\int (3 - x^2)^3 \, dx$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q8" value="A">
+                <span>A) \(27x - 9x^3 + x^5 - x^7 + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q8" value="B">
+                <span>B) \(27x - 9x^3 + x^5 - 7x^7 + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q8" value="C">
+                <span>C) \(2x - x^3 + \frac{9}{5}x^5 - \frac{1}{7}x^7 + C\)</span>
+            </label>
+            <label class="option-item" id="q8-correct">
+                <input type="radio" name="q8" value="D">
+                <span>D) \(27x - 9x^3 + \frac{9}{5}x^5 - \frac{1}{7}x^7 + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q8" value="E">
+                <span>E) \(x - x^3 + x^5 - \frac{1}{7}x^7 + C\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp8">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Ең алдымен интеграл астындағы өрнекті қысқаша көбейту формуласы (айырманың кубы) арқылы ашамыз:
+                    $$(a - b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$
+                </li>
+                <li>Біздің жағдайда \(a = 3\) және \(b = x^2\):
+                    $$(3 - x^2)^3 = 3^3 - 3 \cdot 3^2 \cdot x^2 + 3 \cdot 3 \cdot (x^2)^2 - (x^2)^3 = 27 - 27x^2 + 9x^4 - x^6$$
+                </li>
+                <li>Енді әр мүшені жеке-жеке интегралдаймыз:
+                    $$\int (27 - 27x^2 + 9x^4 - x^6) \, dx = \int 27\,dx - \int 27x^2\,dx + \int 9x^4\,dx - \int x^6\,dx$$
+                </li>
+                <li>Негізгі дәрежелік интеграл формуласын қолданамыз \(\int x^n \, dx = \frac{x^{n+1}}{n+1}\):
+                    $$\int 27\,dx = 27x$$
+                    $$\int 27x^2\,dx = 27 \cdot \frac{x^3}{3} = 9x^3$$
+                    $$\int 9x^4\,dx = 9 \cdot \frac{x^5}{5} = \frac{9}{5}x^5$$
+                    $$\int x^6\,dx = \frac{x^7}{7} = \frac{1}{7}x^7$$
+                </li>
+                <li>Барлық нәтижелерді біріктіріп, интегралдау тұрақтысы \(C\)-ны қосамыз:
+                    $$27x - 9x^3 + \frac{9}{5}x^5 - \frac{1}{7}x^7 + C$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: D</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q9-container">
+        <span class="question-num">Сұрақ №9</span>
+        <div class="question-text">Интегралдың мәні:</div>
+        <div class="math-display">
+            $$\int \text{ctg}^3 x \, dx$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q9" value="A">
+                <span>A) \(\frac{\text{ctg}^2 x}{2} + \frac{1}{2}\ln|\sin x| + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q9" value="B">
+                <span>B) \(\frac{\text{ctg}^2 x}{2} + \ln|\sin x| + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q9" value="C">
+                <span>C) \(\frac{\text{ctg}^2 x}{2} - \ln|\sin x| + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q9" value="D">
+                <span>D) \(-\frac{\text{ctg}^2 x}{2} - \frac{1}{2}\ln|\sin x| + C\)</span>
+            </label>
+            <label class="option-item" id="q9-correct">
+                <input type="radio" name="q9" value="E">
+                <span>E) \(-\frac{\text{ctg}^2 x}{2} - \ln|\sin x| + C\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp9">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Тригонометриялық теңдікті қолданамыз: \(\text{ctg}^2 x = \frac{1}{\sin^2 x} - 1\).</li>
+                <li>Интегралды түрлендіреміз:
+                    $$\int \text{ctg}^3 x \, dx = \int \text{ctg}\,x \cdot \text{ctg}^2 x \, dx = \int \text{ctg}\,x \left( \frac{1}{\sin^2 x} - 1 \right) dx$$
+                </li>
+                <li>Жақшаны ашып, екі интегралға жіктейміз:
+                    $$\int \frac{\text{ctg}\,x}{\sin^2 x} \, dx - \int \text{ctg}\,x \, dx$$
+                </li>
+                <li>Бірінші интеграл үшін белгілеу енгіземіз: \(u = \text{ctg}\,x \implies du = -\frac{1}{\sin^2 x}dx\):
+                    $$\int \frac{\text{ctg}\,x}{\sin^2 x} \, dx = -\int u \, du = -\frac{u^2}{2} = -\frac{\text{ctg}^2 x}{2}$$
+                </li>
+                <li>Екінші интеграл белгілі кестелік мәнге ие:
+                    $$\int \text{ctg}\,x \, dx = \int \frac{\cos x}{\sin x} dx = \int \frac{d(\sin x)}{\sin x} = \ln|\sin x|$$
+                </li>
+                <li>Нәтижелерді біріктіреміз:
+                    $$-\frac{\text{ctg}^2 x}{2} - \ln|\sin x| + C$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: E</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q10-container">
+        <span class="question-num">Сұрақ №10</span>
+        <div class="question-text">Интегралдың мәні:</div>
+        <div class="math-display">
+            $$\int \frac{dx}{x^2 - 6x + 18}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item" id="q10-correct">
+                <input type="radio" name="q10" value="A">
+                <span>A) \(\frac{1}{3}\,\text{arctg}\,\frac{x-3}{3} + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q10" value="B">
+                <span>B) \(-\frac{1}{3}\,\text{arctg}\,\frac{x-3}{3} + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q10" value="C">
+                <span>C) \(\frac{1}{3}\,\text{arctg}\,\frac{x+3}{3} + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q10" value="D">
+                <span>D) \(\text{arctg}\,\frac{x-3}{3} + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q10" value="E">
+                <span>E) \(-\frac{1}{3}\,\text{arctg}\,\frac{x+3}{3} + C\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp10">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Бөлімдегі квадрат үшмүшеліктен толық квадратты бөліп аламыз:
+                    $$x^2 - 6x + 18 = (x^2 - 6x + 9) + 9 = (x - 3)^2 + 3^2$$
+                </li>
+                <li>Интегралды жаңа түрде жазамыз:
+                    $$\int \frac{dx}{(x - 3)^2 + 3^2}$$
+                </li>
+                <li>Кестелік арктангенс интегралының формуласын қолданамыз \(\int \frac{du}{u^2 + a^2} = \frac{1}{a}\,\text{arctg}\,\frac{u}{a} + C\).</li>
+                <li>Мұндағы \(u = x - 3 \implies du = dx\), ал \(a = 3\).</li>
+                <li>Формула бойынша шешімін жазамыз:
+                    $$\frac{1}{3}\,\text{arctg}\,\frac{x - 3}{3} + C$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: A</strong></p>
+        </div>
+    </div>
+    <div class="question-card" id="q11-container">
+        <span class="question-num">Сұрақ №11</span>
+        <div class="question-text">Берілген шекті есептеңіз:</div>
+        <div class="math-display">
+            $$\lim_{x \to 0} \frac{\ln(1 - 3x)}{\sin(3x)}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q11" value="A">
+                <span>A) \(0\)</span>
+            </label>
+            <label class="option-item" id="q11-correct">
+                <input type="radio" name="q11" value="B">
+                <span>B) \(-1\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q11" value="C">
+                <span>C) \(1\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q11" value="D">
+                <span>D) \(3\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q11" value="E">
+                <span>E) \(-3\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp11">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Шекті есептеу үшін эквивалентті шексіз аз шамаларды қолданамыз (\(x \to 0\) ұмтылғанда):
+                    $$\ln(1 + u) \sim u \implies \ln(1 - 3x) \sim -3x$$
+                    $$\sin(u) \sim u \implies \sin(3x) \sim 3x$$
+                </li>
+                <li>Бұл эквиваленттіктерді шекке қоямыз:
+                    $$\lim_{x \to 0} \frac{\ln(1 - 3x)}{\sin(3x)} = \lim_{x \to 0} \frac{-3x}{3x}$$
+                </li>
+                <li>\(x\)-ті қысқартамыз:
+                    $$\lim_{x \to 0} \frac{-3x}{3x} = \frac{-3}{3} = -1$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q12-container">
+        <span class="question-num">Сұрақ №12</span>
+        <div class="question-text">Берілген шекті есептеңіз:</div>
+        <div class="math-display">
+            $$\lim_{x \to \infty} \left(\frac{x + 8}{x - 2}\right)^x$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q12" value="A">
+                <span>A) \(e^{-10}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q12" value="B">
+                <span>B) \(e^6\)</span>
+            </label>
+            <label class="option-item" id="q12-correct">
+                <input type="radio" name="q12" value="C">
+                <span>C) \(e^{10}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q12" value="D">
+                <span>D) \(e^{-6}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q12" value="E">
+                <span>E) \(e\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp12">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Бұл екінші тамаша шекке келетін \(1^\infty\) түріндегі анықталмағандық. Келесі жылдам формуланы қолданамыз:
+                    $$\lim_{x \to \infty} \left(\frac{x + a}{x + b}\right)^x = e^{a - b}$$
+                </li>
+                <li>Біздің есепте: \(a = 8\), ал \(b = -2\).</li>
+                <li>Формулаға қоямыз:
+                    $$e^{8 - (-2)} = e^{8 + 2} = e^{10}$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: C</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q13-container">
+        <span class="question-num">Сұрақ №13</span>
+        <div class="question-text">Жазықтықтағы екі нүктенің арақашықтығын табыңыз: \(A(-1; 3)\) және \(B(5; 11)\).</div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q13" value="A">
+                <span>A) \(8\)</span>
+            </label>
+            <label class="option-item" id="q13-correct">
+                <input type="radio" name="q13" value="B">
+                <span>B) \(10\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q13" value="C">
+                <span>C) \(6\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q13" value="D">
+                <span>D) \(\sqrt{10}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q13" value="E">
+                <span>E) \(12\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp13">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Екі нүктенің арақашықтығының формуласын қолданамыз:
+                    $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
+                </li>
+                <li>Мәндерді орнына қоямыз:
+                    $$d = \sqrt{(5 - (-1))^2 + (11 - 3)^2}$$
+                </li>
+                <li>Есептейміз:
+                    $$d = \sqrt{(5 + 1)^2 + 8^2} = \sqrt{6^2 + 8^2} = \sqrt{36 + 64} = \sqrt{100} = 10$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q14-container">
+        <span class="question-num">Сұрақ №14</span>
+        <div class="question-text">Егер \(\vec{a} = \{x; -2; 1\}\) және \(\vec{b} = \{1; 4; -x\}\) векторлары перпендикуляр болса, \(x\)-ті табыңыз:</div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q14" value="A">
+                <span>A) Шешімі жоқ</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q14" value="B">
+                <span>B) \(x = 0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q14" value="C">
+                <span>C) \(x = 4\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q14" value="D">
+                <span>D) \(x = -8\)</span>
+            </label>
+            <label class="option-item" id="q14-correct">
+                <input type="radio" name="q14" value="E">
+                <span>E) Кез келген сан</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp14">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Екі вектор перпендикуляр болуы үшін олардың скаляр көбейтіндісі нөлге тең болуы керек:
+                    $$\vec{a} \cdot \vec{b} = a_x b_x + a_y b_y + a_z b_z = 0$$
+                </li>
+                <li>Координаталарды формулаға қоямыз:
+                    $$x \cdot 1 + (-2) \cdot 4 + 1 \cdot (-x) = 0$$
+                </li>
+                <li>Ықшамдаймыз:
+                    $$x - 8 - x = 0 \implies -8 = 0$$
+                </li>
+                <li>Бұл теңдік ешқашан орындалмайды (мүмкін емес). Демек, мұндай векторлар перпендикуляр бола алмайды. Сондықтан берілген шартты қанағаттандыратын \(x\)-тің мәні <strong>шешімі жоқ (жоқ)</strong> болады. 
+                <br><em>(Ескерту: Егер скриншот нұсқаларында «Шешімі жоқ» деп тұрса, сол дұрыс болады).</em></li>
+            </ol>
+            <p><strong>Дұрыс жауабы: A</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q15-container">
+        <span class="question-num">Сұрақ №15</span>
+        <div class="question-text">Берілген анықтауышты (детерминантты) есептеңіз:</div>
+        <div class="math-display">
+            $$\begin{vmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{vmatrix}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item" id="q15-correct">
+                <input type="radio" name="q15" value="A">
+                <span>A) \(0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q15" value="B">
+                <span>B) \(1\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q15" value="C">
+                <span>C) \(-1\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q15" value="D">
+                <span>D) \(5\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q15" value="E">
+                <span>E) \(-5\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp15">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Үшінші ретті анықтауышты есептеудің қасиетін қолданамыз. Егер анықтауыштың жолдары арифметикалық прогрессия құраса, оның мәні әрқашан 0-ге тең болады. Тексеріп көрейік.</li>
+                <li>Екінші жолдан бірінші жолды азайтамыз, сондай-ақ үшінші жолдан екінші жолды азайтамыз:
+                    $$Row_2 - Row_1 = \{3; 3; 3\}$$
+                    $$Row_3 - Row_2 = \{3; 3; 3\}$$
+                </li>
+                <li>Екі жол бірдей болып шықты. Анықтауыштың қасиеті бойынша, егер екі жол сызықты тәуелді немесе тең болса, онда детерминант <strong>0</strong>-ге тең.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: A</strong></p>
+        </div>
+    </div>
+      <div class="question-card" id="q16-container">
+        <span class="question-num">Сұрақ №16</span>
+        <div class="question-text">Егер \(\vec{a} = \{x; -2; 1\}\) және \(\vec{b} = \{1; 4; -x\}\) векторлары коллинеар болса, \(x\)-ті табыңыз:</div>
+        
+        <div class="options-list">
+            <label class="option-item" id="q16-correct">
+                <input type="radio" name="q16" value="A">
+                <span>A) Шешімі жоқ</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q16" value="B">
+                <span>B) \(x = 0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q16" value="C">
+                <span>C) \(x = 4\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q16" value="D">
+                <span>D) \(x = -8\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q16" value="E">
+                <span>E) Кез келген сан</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp16">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Екі вектор коллинеар болуы үшін олардың сәйкес координаталары пропорционал болуы керек:
+                    $$\frac{a_x}{b_x} = \frac{a_y}{b_y} = \frac{a_z}{b_z}$$
+                </li>
+                <li>Векторлардың мәндерін қатынас түрінде жазамыз:
+                    $$\frac{x}{1} = \frac{-2}{4} = \frac{1}{-x}$$
+                </li>
+                <li>Ортаңғы қатынасты ықшамдаймыз:
+                    $$\frac{-2}{4} = -\frac{1}{2}$$
+                </li>
+                <li>Енді пропорцияның шеткі мүшелерін осы мәнге теңестіреміз:
+                    <ol type="a">
+                        <li>Бірінші қатынастан: \(x = -\frac{1}{2}\)</li>
+                        <li>Үшінші қатынастан: \(\frac{1}{-x} = -\frac{1}{2} \implies -x = -2 \implies x = 2\)</li>
+                    </ol>
+                </li>
+                <li>Бізде екі түрлі қайшылықты мән шықты (\(x = -0.5\) және \(x = 2\)). Бір мезгілде екі шартты да қанағаттандыратын бір ортақ \(x\) мәні жоқ. </li>
+                <li>Сондықтан бұл векторлар ешбір \(x\)-тің мәнінде коллинеар бола алмайды. Жауабы: <strong>Шешімі жоқ</strong>.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: A</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q17-container">
+        <span class="question-num">Сұрақ №17</span>
+        <div class="question-text">Сызықтық теңдеулер жүйесін Крамер әдісімен шешу барысында басты анықтауыш \(\Delta = 0\)-ге тең болып, ал көмекші анықтауыштардың ең болмағанда біреуі нөлден өзгеше (\(\Delta_x \neq 0\)) болса, онда жүйенің:</div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q17" value="A">
+                <span>A) Шексіз көп шешімі бар</span>
+            </label>
+            <label class="option-item" id="q17-correct">
+                <input type="radio" name="q17" value="B">
+                <span>B) Шешімі жоқ</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q17" value="C">
+                <span>C) Тек бір ғана шешімі бар</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q17" value="D">
+                <span>D) Тек екі шешімі бар</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q17" value="E">
+                <span>E) Анықталмаған</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp17">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Крамер ережесі бойынша жүйенің айнымалылары келесі қатынастар арқылы табылады:
+                    $$x = \frac{\Delta_x}{\Delta}, \quad y = \frac{\Delta_y}{\Delta}$$
+                </li>
+                <li>Егер бас детерминант \(\Delta = 0\) болса, бізде нөлге бөлу жағдайы туындайды.</li>
+                <li>Егер көмекші детерминанттардың (мысалы, \(\Delta_x\)) кем дегенде біреуі нөлге тең емес болса (мысалы, \(\Delta_x = 5\)), онда біз санды нөлге бөлуге мәжбүр боламыз (\(\frac{5}{0}\)), бұл математикада мүмкін емес.</li>
+                <li>Демек, бұл жағдайда теңдеулер жүйесі үйлесімсіз болады, яғни оның <strong>шешімі жоқ</strong>.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q18-container">
+        <span class="question-num">Сұрақ №18</span>
+        <div class="question-text">Теңдеудің шешімін табыңыз:</div>
+        <div class="math-display">
+            $$3^x = \frac{1}{27}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q18" value="A">
+                <span>A) \(x = 3\)</span>
+            </label>
+            <label class="option-item" id="q18-correct">
+                <input type="radio" name="q18" value="B">
+                <span>B) \(x = -3\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q18" value="C">
+                <span>C) \(x = \frac{1}{3}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q18" value="D">
+                <span>D) \(x = 1\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q18" value="E">
+                <span>E) \(x = 0\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp18">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Бөлшектің бөліміндегі санды дәреже түрінде жазамыз:
+                    $$27 = 3^3$$
+                </li>
+                <li>Теріс дәреже қасиетін қолданып, өрнекті түрлендіреміз:
+                    $$\frac{1}{27} = \frac{1}{3^3} = 3^{-3}$$
+                </li>
+                <li>Енді негіздері бірдей көрсеткіштік теңдеуді теңестіреміз:
+                    $$3^x = 3^{-3} \implies x = -3$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q19-container">
+        <span class="question-num">Сұрақ №19</span>
+        <div class="question-text">Берілген шекті есептеңіз:</div>
+        <div class="math-display">
+            $$\lim_{x \to 0} (1 + 4x)^{\frac{1}{x}}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q19" value="A">
+                <span>A) \(e\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q19" value="B">
+                <span>B) \(e^2\)</span>
+            </label>
+            <label class="option-item" id="q19-correct">
+                <input type="radio" name="q19" value="C">
+                <span>C) \(e^4\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q19" value="D">
+                <span>D) \(e^{-4}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q19" value="E">
+                <span>E) \(1\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp19">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Бұл екінші тамаша шектің маңызды салдарына келетін есеп:
+                    $$\lim_{u \to 0} (1 + u)^{\frac{1}{u}} = e$$
+                </li>
+                <li>Біздің жағдайда \(u = 4x\). Дәрежеде осы өрнектің кері шамасы \(\frac{1}{4x}\) болуы керек.</li>
+                <li>Дәрежені түрлендіреміз:
+                    $$\lim_{x \to 0} \left[ (1 + 4x)^{\frac{1}{4x}} \right]^4$$
+                </li>
+                <li>Жақшаның ішіндегі өрнек екінші тамаша шек бойынша \(e\)-ге ұмтылады:
+                    $$e^4$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: C</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q20-container">
+        <span class="question-num">Сұрақ №20</span>
+        <div class="question-text">Екінші ретті қисықтың түрін анықтаңыз:</div>
+        <div class="math-display">
+            $$x^2 + y^2 = 9$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q20" value="A">
+                <span>A) Эллипс</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q20" value="B">
+                <span>B) Гипербола</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q20" value="C">
+                <span>C) Парабола</span>
+            </label>
+            <label class="option-item" id="q20-correct">
+                <input type="radio" name="q20" value="D">
+                <span>D) Шеңбер</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q20" value="E">
+                <span>E) Қиылысатын түзулер</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp20">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Екінші ретті қисықтардың канондық теңдеулерін еске түсірейік.</li>
+                <li>Центрі координаталар басында жататын радиусы \(R\) болатын шеңбердің теңдеуі:
+                    $$x^2 + y^2 = R^2$$
+                </li>
+                <li>Берілген теңдеуді осы түрге келтіреміз:
+                    $$x^2 + y^2 = 3^2$$
+                </li>
+                <li>Бұл центрі \((0; 0)\) нүктесінде және радиусы \(R = 3\) болатын **шеңбер** екенін білдіреді.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: D</strong></p>
+        </div>
+    </div>
+      <div class="question-card" id="q21-container">
+        <span class="question-num">Сұрақ №21</span>
+        <div class="question-text">Берілген шекті есептеңіз:</div>
+        <div class="math-display">
+            $$\lim_{x \to 0} \frac{x^2 - 9}{x^2 - 3x}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q21" value="A">
+                <span>A) \(0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q21" value="B">
+                <span>B) \(1\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q21" value="C">
+                <span>C) \(2\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q21" value="D">
+                <span>D) \(-3\)</span>
+            </label>
+            <label class="option-item" id="q21-correct">
+                <input type="radio" name="q21" value="E">
+                <span>E) Шегі жоқ (\(\infty\))</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp21">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Шегін іздеп тұрған нүктені (\(x = 0\)) өрнекке қойып көреміз:
+                    $$\frac{0^2 - 9}{0^2 - 3(0)} = \frac{-9}{0}$$
+                </li>
+                <li>Математикада нөлге бөлу шексіздікке ұмтылуды білдіреді (\(\frac{C}{0} \to \infty\), мұндағы \(C \neq 0\)).</li>
+                <li>Бұл функция \(x \to 0\) ұмтылғанда шексіз үлкен шамаға айналады, яғни оның шегі ақырлы сан емес — **шексіздік (\(\infty\))** болады немесе шегі жоқ деп саналады.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: E</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q22-container">
+        <span class="question-num">Сұрақ №22</span>
+        <div class="question-text">Сызықтық теңдеулер жүйесін Крамер әдісімен шешу барысында басты анықтауыш \(\Delta = 0\) болып, ал барлық көмекші анықтауыштар да нөлге тең болса (\(\Delta_x = 0\), \(\Delta_y = 0\), \(\Delta_z = 0\)), онда жүйенің:</div>
+        
+        <div class="options-list">
+            <label class="option-item" id="q22-correct">
+                <input type="radio" name="q22" value="A">
+                <span>A) Шексіз көп шешімі бар</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q22" value="B">
+                <span>B) Шешімі жоқ</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q22" value="C">
+                <span>C) Жалғыз шешімі бар</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q22" value="D">
+                <span>D) Тек екі шешімі бар</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q22" value="E">
+                <span>E) Анықталмаған тривиалды емес шешімі бар</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp22">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Крамер ережесінің теориясына сәйкес:</li>
+                <li>Егер бас детерминант \(\Delta \neq 0\) болса, жүйенің жалғыз нақты шешімі болады.</li>
+                <li>Егер \(\Delta = 0\) болып, бірақ көмекші детерминанттардың кем дегенде біреуі нөлден өзгеше болса, онда жүйенің шешімі болмайды (үйлесімсіз).</li>
+                <li>Ал егер басты анықтауыш та, барлық көмекші анықтауыштар да бір мезгілде нөлге тең болса (\(\Delta = \Delta_x = \Delta_y = \Delta_z = 0\)), онда жүйе анықталмаған болып табылады және оның <strong>шексіз көп шешімі болады</strong>.</li>
+            </ol>
+            <p><strong>Дұрыс жауабы: A</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q23-container">
+        <span class="question-num">Сұрақ №23</span>
+        <div class="question-text">Берілген анықталмаған интегралды есептеңіз:</div>
+        <div class="math-display">
+            $$\int \frac{\ln^2 x}{x} \, dx$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q23" value="A">
+                <span>A) \(\frac{\ln x}{3} + C\)</span>
+            </label>
+            <label class="option-item" id="q23-correct">
+                <input type="radio" name="q23" value="B">
+                <span>B) \(\frac{\ln^3 x}{3} + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q23" value="C">
+                <span>C) \(\ln^3 x + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q23" value="D">
+                <span>D) \(\frac{x \ln^3 x}{3} + C\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q23" value="E">
+                <span>E) \(\frac{\ln^2 x}{2} + C\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp23">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Айнымалыны алмастыру әдісін қолданамыз. Белгілеу енгіземіз:
+                    $$u = \ln x \implies du = \frac{1}{x}dx$$
+                </li>
+                <li>Интегралға осы мәндерді қоямыз:
+                    $$\int \ln^2 x \cdot \left(\frac{1}{x}dx\right) = \int u^2 \, du$$
+                </li>
+                <li>Дәрежелік функцияның интегралын табамыз:
+                    $$\int u^2 \, du = \frac{u^3}{3} + C$$
+                </li>
+                <li>Бастапқы айнымалымызға (\(x\)) қайта ораламыз:
+                    $$\frac{\ln^3 x}{3} + C$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q24-container">
+        <span class="question-num">Сұрақ №24</span>
+        <div class="question-text">Берілген шекті есептеңіз:</div>
+        <div class="math-display">
+            $$\lim_{x \to 3} \frac{x^2 - 9}{x^2 - 3x}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q24" value="A">
+                <span>A) \(1\)</span>
+            </label>
+            <label class="option-item" id="q24-correct">
+                <input type="radio" name="q24" value="B">
+                <span>B) \(2\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q24" value="C">
+                <span>C) \(0\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q24" value="D">
+                <span>D) \(-3\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q24" value="E">
+                <span>E) Шегі жоқ</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp24">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Шегін іздеп тұрған нүктені (\(x = 3\)) қойғанда \(\frac{0}{0}\) анықталмағандығы туындайды.</li>
+                <li>Алым мен бөлімді көбейткіштерге жіктейміз:
+                    $$\text{Алымы: } x^2 - 9 = (x - 3)(x + 3)$$
+                    $$\text{Бөлімі: } x^2 - 3x = x(x - 3)$$
+                </li>
+                <li>Өрнекті шекке қойып, ортақ көбейткішті (\(x-3\)) қысқартамыз:
+                    $$\lim_{x \to 3} \frac{(x - 3)(x + 3)}{x(x - 3)} = \lim_{x \to 3} \frac{x + 3}{x}$$
+                </li>
+                <li>Енді \(x = 3\) мәнін қойып есептейміз:
+                    $$\frac{3 + 3}{3} = \frac{6}{3} = 2$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q25-container">
+        <span class="question-num">Сұрақ №25</span>
+        <div class="question-text">Берілген функцияның екінші ретті дербес туындысын табыңыз:</div>
+        <div class="math-display">
+            $$z = x^3 + y^3 - 3xy, \quad \frac{\partial^2 z}{\partial x^2} = ?$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q25" value="A">
+                <span>A) \(6y\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q25" value="B">
+                <span>B) \(3x\)</span>
+            </label>
+            <label class="option-item" id="q25-correct">
+                <input type="radio" name="q25" value="C">
+                <span>C) \(6x\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q25" value="D">
+                <span>D) \(3y\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q25" value="E">
+                <span>E) \(-3\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp25">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Алдымен \(x\) бойынша бірінші ретті дербес туындыны табамыз (бұл кезде \(y\) айнымалысын тұрақты сан (константа) деп қараймыз):
+                    $$\frac{\partial z}{\partial x} = \frac{\partial}{\partial x} (x^3 + y^3 - 3xy) = 3x^2 + 0 - 3y = 3x^2 - 3y$$
+                </li>
+                <li>Енді осы шыққан нәтижеден тағы да \(x\) бойынша екінші рет туынды аламыз:
+                    $$\frac{\partial^2 z}{\partial x^2} = \frac{\partial}{\partial x} (3x^2 - 3y) = 6x - 0 = 6x$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: C</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q26-container">
+        <span class="question-num">Сұрақ №26</span>
+        <div class="question-text">Берілген функцияның \(x\) бойынша бірінші ретті дербес туындысын табыңыз:</div>
+        <div class="math-display">
+            $$z = e^{x^2 + y^2}, \quad \frac{\partial z}{\partial x} = ?$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item" id="q26-correct">
+                <input type="radio" name="q26" value="A">
+                <span>A) \(2x \cdot e^{x^2 + y^2}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q26" value="B">
+                <span>B) \(2y \cdot e^{x^2 + y^2}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q26" value="C">
+                <span>C) \(x \cdot e^{x^2 + y^2}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q26" value="D">
+                <span>D) \(y \cdot e^{x^2 + y^2}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q26" value="E">
+                <span>E) \(e^{2x}\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp26">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Күрделі көрсеткіштік функциядан \(x\) бойынша дербес туынды аламыз (бұл кезде \(y\) тұрақты сан деп есептеледі):
+                    $$\frac{\partial z}{\partial x} = e^{x^2 + y^2} \cdot \frac{\partial}{\partial x}(x^2 + y^2)$$
+                </li>
+                <li>Дәреженің дербес туындысын табамыз:
+                    $$\frac{\partial}{\partial x}(x^2 + y^2) = 2x + 0 = 2x$$
+                </li>
+                <li>Нәтижелерді көбейтеміз:
+                    $$\frac{\partial z}{\partial x} = 2x \cdot e^{x^2 + y^2}$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: A</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q27-container">
+        <span class="question-num">Сұрақ №27</span>
+        <div class="question-text">Берілген анықталған интегралды есептеңіз:</div>
+        <div class="math-display">
+            $$\int_{0}^{2} (x^2 - 1) \, dx$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q27" value="A">
+                <span>A) \(2\)</span>
+            </label>
+            <label class="option-item" id="q27-correct">
+                <input type="radio" name="q27" value="B">
+                <span>B) \(\frac{2}{3}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q27" value="C">
+                <span>C) \(\frac{8}{3}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q27" value="D">
+                <span>D) \(-\frac{2}{3}\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q27" value="E">
+                <span>E) \(0\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp27">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Алдымен алғашқы функцияны (анықталмаған интегралын) табамыз:
+                    $$\int (x^2 - 1) \, dx = \frac{x^3}{3} - x$$
+                </li>
+                <li>Ньютон-Лейбниц формуласын қолданамыз (\(F(b) - F(a)\)), интегралдау шегі \(0\)-ден \(2\)-ге дейін:
+                    $$\left[ \frac{x^3}{3} - x \right]_{0}^{2} = \left( \frac{2^3}{3} - 2 \right) - \left( \frac{0^3}{3} - 0 \right)$$
+                </li>
+                <li>Есептейміз:
+                    $$\left( \frac{8}{3} - 2 \right) - 0 = \frac{8}{3} - \frac{6}{3} = \frac{2}{3}$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q28-container">
+        <span class="question-num">Сұрақ №28</span>
+        <div class="question-text">Берілген функцияның анықталу облысын табыңыз:</div>
+        <div class="math-display">
+            $$f(x) = \ln(x^2 - 4)$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q28" value="A">
+                <span>A) \([-2; 2]\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q28" value="B">
+                <span>B) \((-\infty; -2] \cup [2; +\infty)\)</span>
+            </label>
+            <label class="option-item" id="q28-correct">
+                <input type="radio" name="q28" value="C">
+                <span>C) \((-\infty; -2) \cup (2; +\infty)\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q28" value="D">
+                <span>D) \((-2; 2)\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q28" value="E">
+                <span>E) \((0; +\infty)\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp28">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Логарифмдік функцияның анықталу шарты бойынша оның аргументі қатаң түрде нөлден үлкен болуы тиіс:
+                    $$x^2 - 4 > 0$$
+                </li>
+                <li>Квадрат теңсіздікті көбейткіштерге жіктеп шешеміз:
+                    $$(x - 2)(x + 2) > 0$$
+                </li>
+                <li>Интервалдар әдісін қолданамыз. Нөлдері: \(x = -2\) және \(x = 2\).</li>
+                <li>Аралықтардағы таңбаларды тексереміз:
+                    <ul>
+                        <li>\((-\infty; -2)\) аралығында: мысалы \(x = -3 \implies (-3)^2 - 4 = 5 > 0\) (оң таңба)</li>
+                        <li>\((-2; 2)\) аралығында: мысалы \(x = 0 \implies 0^2 - 4 = -4 < 0\) (теріс таңба)</li>
+                        <li>\((2; +\infty)\) аралығында: мысалы \(x = 3 \implies 3^2 - 4 = 5 > 0\) (оң таңба)</li>
+                    </ul>
+                </li>
+                <li>Бізге оң таңбалы аралықтар қажет болғандықтан, шешімі:
+                    $$(-\infty; -2) \cup (2; +\infty)$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: C</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q29-container">
+        <span class="question-num">Сұрақ №29</span>
+        <div class="question-text">Берілген функцияның анықталу облысын табыңыз:</div>
+        <div class="math-display">
+            $$f(x) = \sqrt{x^2 - 4}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q29" value="A">
+                <span>A) \([-2; 2]\)</span>
+            </label>
+            <label class="option-item" id="q29-correct">
+                <input type="radio" name="q29" value="B">
+                <span>B) \((-\infty; -2] \cup [2; +\infty)\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q29" value="C">
+                <span>C) \((-\infty; -2) \cup (2; +\infty)\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q29" value="D">
+                <span>D) \((-2; 2)\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q29" value="E">
+                <span>E) \([0; +\infty)\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp29">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Жұп дәрежелі түбір астындағы өрнек теріс емес (нөлге тең немесе одан үлкен) болуы тиіс:
+                    $$x^2 - 4 \ge 0$$
+                </li>
+                <li>Көбейткіштерге жіктейміз:
+                    $$(x - 2)(x + 2) \ge 0$$
+                </li>
+                <li>Теңсіздік қатаң емес болғандықтан, шекаралық нүктелер де анықталу облысына кіреді.</li>
+                <li>Интервалдар әдісі арқылы оң таңбалы аймақтарды табамыз (28-есептегідей, бірақ нүктелерді қоса есептегенде):
+                    $$(-\infty; -2] \cup [2; +\infty)$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: B</strong></p>
+        </div>
+    </div>
+
+    <div class="question-card" id="q30-container">
+        <span class="question-num">Сұрақ №30</span>
+        <div class="question-text">Берілген функцияның анықталу облысын табыңыз:</div>
+        <div class="math-display">
+            $$f(x) = \frac{1}{x^2 - 4}$$
+        </div>
+        
+        <div class="options-list">
+            <label class="option-item">
+                <input type="radio" name="q30" value="A">
+                <span>A) \((-\infty; -2) \cup (2; +\infty)\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q30" value="B">
+                <span>B) \((-2; 2)\)</span>
+            </label>
+            <label class="option-item" id="q30-correct">
+                <input type="radio" name="q30" value="C">
+                <span>C) \((-\infty; -2) \cup (-2; 2) \cup (2; +\infty)\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q30" value="D">
+                <span>D) \((-\infty; +\infty)\)</span>
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q30" value="E">
+                <span>E) Нақты сандар жиыны, тек \(x \neq 0\)</span>
+            </label>
+        </div>
+        
+        <div class="explanation-box" id="exp30">
+            <h4>Шешуі мен түсіндірмесі:</h4>
+            <ol class="explanation-steps">
+                <li>Бөлшектің бөлімі нөлге тең болмауы тиіс:
+                    $$x^2 - 4 \neq 0$$
+                </li>
+                <li>Бұл шартты шешеміз:
+                    $$x^2 \neq 4 \implies x \neq 2 \text{ және } x \neq -2$$
+                </li>
+                <li>Демек, функцияның анықталу облысы \(-2\) және \(2\) сандарынан басқа кез келген нақты сандарды қамтиды.</li>
+                <li>Интервал түрінде жазғанда:
+                    $$(-\infty; -2) \cup (-2; 2) \cup (2; +\infty)$$
+                </li>
+            </ol>
+            <p><strong>Дұрыс жауабы: C</strong></p>
+        </div>
+    </div>
+
+    <div class="action-container">
+        <button class="btn-submit" onclick="checkAnswers()">Нәтижені көрсету</button>
+    </div>
+
+</div> <script>
+function checkAnswers() {
+    const totalQuestions = 30;
+    let score = 0;
+    
+    for (let i = 1; i <= totalQuestions; i++) {
+        const options = document.getElementsByName('q' + i);
+        const correctOption = document.getElementById('q' + i + '-correct');
+        const explanation = document.getElementById('exp' + i);
+        
+        let selected = null;
+        for (const option of options) {
+            option.parentElement.classList.remove('correct-choice', 'incorrect-choice');
+            if (option.checked) {
+                selected = option;
+            }
+        }
+        
+        if (correctOption) {
+            correctOption.parentElement.classList.add('correct-choice');
+        }
+        
+        if (selected) {
+            if (selected === correctOption) {
+                score++;
+            } else {
+                selected.parentElement.classList.add('incorrect-choice');
+            }
+        }
+        
+        if (explanation) {
+            explanation.style.display = 'block';
+        }
+    }
+    
+    if (typeof MathJax !== 'undefined') {
+        MathJax.typesetPromise();
+    }
+    
+    alert('Тест аяқталды! Сіздің нәтижеңіз: ' + score + ' / ' + totalQuestions + '.\nТөменде әр тапсырманың дұрыс жауабы мен егжей-тегжейлі шешуі көрсетілді.');
+}
+</script>
+
+</body>
+</html>
+
+
+  
+
+
+
+  
